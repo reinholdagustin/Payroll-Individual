@@ -45,39 +45,49 @@ public class PayrollIndividualReworked {
       case 1: 
          
       
-      System.out.println("Type employee number:");
+    System.out.println("Type employee number:");
       String inputemployee = scanner.nextLine().trim();
+      boolean found = false;
+
+String file = "MotorPH_Employee Data.csv";
+       BufferedReader reader = null;
+       String line;
+       
+       try{
+      reader=new BufferedReader(new FileReader(file));
+      while((line = reader.readLine()) !=null){
+          String[] parts = line.split(",");
+         String employeeNumber = parts[0];
       
-       try {
-      File f = new File("employees.txt");
-      BufferedReader bread = new  BufferedReader(new FileReader(f));
-     String line;
-     boolean found = false;
-     
-  while ((line = bread.readLine()) != null) {
-    String[] parts = line.split(",");
-    String employeeNumber = parts[0];
-
-    if (employeeNumber.equals(inputemployee)) {
-        System.out.println("EMPLOYEE DETAILS:");
-        System.out.println("Employee No:" + parts[0]);
-        System.out.println("Name:" + parts[1]);
-        System.out.println("Position:" + parts[2]);
-        System.out.println("Salary:" + parts[3]);
-        found = true;
-        break;
-    }
-}
-
-bread.close();
-
-if (!found) {
-    System.out.println("Employee not found.");
-}
-       }catch (IOException e){
-           System.out.println("Something went wrong."+ e.getMessage());
+         if (employeeNumber.equals(inputemployee)){
+           System.out.println("EMPLOYEE DETAILS:");
+           System.out.println ("Employee No:"+ parts[0]);
+           System.out.println ("First Name:"+ parts[1]);
+          System.out.println ("Last Name:"+ parts[2]);
+           System.out.println ("Birthday"+ parts[3]);
+            System.out.println ("Salary"+ parts[14]+","+parts[15]);
+             System.out.println ("Hourly Rate:"+ parts[24]);
+          
+          
+          found = true;
+          break;
+         }
+      }
+       if(!found){
+             System.out.println("Employee not found.");
+  
+      }
+        }     
+       catch(Exception e){
+     }
+       finally{
+           try{
+               if ( reader !=null )
+           reader.close();
+       }catch(IOException e){
+           e.printStackTrace();
        }
-
+       }
       break;
 
      case 2:
